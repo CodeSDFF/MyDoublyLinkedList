@@ -25,7 +25,7 @@ public class MyDoublyLinkedList<E> {
 			int counter = 1;
 			while (counter - 1 != index) {
 				current = current.next;
-				counter++; // To prevent infinite loops, yo
+				counter++; // To prevent infinite loops
 			}
 			data = item;
 			this.next = current.next;
@@ -36,7 +36,7 @@ public class MyDoublyLinkedList<E> {
 	}
 
 	public int size() {
-		if (head.next == tail) {
+		if (head.next.data == null) {
 			return 0;
 		}
 		Node current = head.next;
@@ -51,7 +51,7 @@ public class MyDoublyLinkedList<E> {
 	public void addFirst(E item) {
 		Node tempNode = new Node();
 		tempNode.data = item;
-		// If list is empty check
+		// Checks to see if list is empty
 		if (head.next.data == null) {
 			head.next = tempNode;
 			tail.previous = tempNode;
@@ -59,19 +59,20 @@ public class MyDoublyLinkedList<E> {
 			tempNode.next = tail;
 			return;
 		}
-		// At least 1 element inside the list
+		// At least 1 item inside the list
 		tempNode.previous = head;
 		tempNode.next = head.next;
 		head.next.previous = tempNode;
 		head.next = tempNode;
 		return;
+		// A line of code below if you want to see what you added, for checks
 		// System.out.println("You added: " + item + " to the front of the list");
 	}
 
 	public void addLast(E item) {
 		Node last_Node = new Node();
 		last_Node.data = item;
-		// If list is empty check
+		// Checks to see if list is empty
 		if (tail.previous.data == null) {
 			tail.previous = last_Node;
 			head.next = last_Node;
@@ -85,6 +86,7 @@ public class MyDoublyLinkedList<E> {
 		tail.previous.next = last_Node;
 		tail.previous = last_Node;
 		return;
+		// A line of code below if you want to see what you added, for checks
 		// System.out.println("You just added: " + item + " to the end of the list");
 	}
 
@@ -94,13 +96,14 @@ public class MyDoublyLinkedList<E> {
 			System.out.println("That's not a valid index, sorry");
 			System.out.println("");
 			return;
-			// Checks using our previous add methods for when the add
-			// method is basically acting as the addFirst and addLast methods
 		}
 
 		Node new_node = new Node();
 		new_node.data = item;
 		new_node.next = null;
+
+		// Checks using our previous add methods for when the add()
+		// method is basically acting as the addFirst and addLast methods
 
 		if (index == 0) {
 			addFirst(item);
@@ -108,24 +111,30 @@ public class MyDoublyLinkedList<E> {
 			addLast(item);
 		} else {
 
-			// If the index passes through these 3 tests, then it
-			// finally can proceed to the code below for add
+		// If the index passes through these 3 tests, then it
+		// can finally proceed to the code below for add
 
-			Node current = head;
-			for(int i = 0; i < index; i++) {
+			Node current = head.next;
+			for (int i = 0; i < index; i++) {
 				current = current.next;
 			}
+			
+			// Use this line of code below to make sure what you
+		    // think is happening with the code is actually happening
+			// very good for figuring out how to write the new pointers
+			
 			System.out.println("Current positon is " + current.data);
 			System.out.println();
 
-			new_node.previous = current;
-			new_node.next = current.next;
-			current.next.previous = new_node;
-			current.next = new_node;
+			new_node.previous = current.previous;
+			new_node.next = current;
+			current.previous.next = new_node;
+			current.previous = new_node;
 		}
 	}
 
 	public void removeFirst() {
+		// Check to see if the list is empty
 		if (head.next == tail) {
 			System.out.println("There is nothing to remove. The list is empty");
 			System.out.println("");
@@ -137,6 +146,7 @@ public class MyDoublyLinkedList<E> {
 	}
 
 	public void removeLast() {
+		// Check to see if the list is empty
 		if (tail.previous == head) {
 			System.out.println("There is nothing to remove. The list is empty");
 			System.out.println("");
@@ -148,19 +158,38 @@ public class MyDoublyLinkedList<E> {
 	}
 
 	public void remove(int index) {
-		if (index < 0 || index > size()) {
-			System.out.println("Not A Valid Operation");
+		// Just a small print out to help you see
+		// what is being removed when the code runs
+		// and how large the list size is before the removal
+		
+		System.out.println("Item is about to be removed");
+		System.out.println("List Size is: " + size());
+		System.out.println("");
+		
+		// Again we need to make sure our index isn't out of bounds
+		if (index < 0 || index > size() - 1) {
+			System.out.println("Index is out of bounds");
+			System.out.println("");
 			return;
 		}
+		// Like before we use our previous remove methods to
+		// handle the cases we've already covered
 		if (index == 0) {
 			removeFirst();
-		} else if (index == size()) {
+		} else if (index == size() - 1) {
 			removeLast();
 		} else {
-			Node new_node = head;
+			Node new_node = head.next;
 			for (int i = 0; i < index; i++) {
 				new_node = new_node.next;
 			}
+		// Just a small way double checking your code is actually
+		// doing what you want it to be doing. It can be removed later
+		// if so desired without affecting the program.
+			System.out.println("Current positon is " + new_node.data);
+			System.out.println("The item that should be removed is " + new_node.data);
+			System.out.println();
+
 			new_node.previous.next = new_node.next;
 			new_node.next.previous = new_node.previous;
 			new_node.next = null;
@@ -169,16 +198,16 @@ public class MyDoublyLinkedList<E> {
 	}
 
 	public void change(E item, int index) {
-		// Not sure if a check for when there is only the sentinel head
-		// and sentinel tail is needed, but better safe than sorry.
-		// We don't like errors in our code
-		if (head == null && head.next == null || tail == null && tail.next == null) {
-			System.out.println("Error, please check your input");
+		// Just a check to make sure the list isn't empty.
+		// Not sure if it is needed, but better safe than sorry
+		if (head.next == null || tail.previous == null) {
+			System.out.println("Unforunately, there are no items in your list to change");
+			System.out.println("");
 			return;
 		} else {
-			// This check against bad index inputs
+		// This checks against bad index inputs
 			if (index < 0 || index >= size()) {
-				System.out.println("There nothing to change here");
+				System.out.println("Change cannot happen. Index is out of bounds");
 				System.out.println("");
 				return;
 			} else {
@@ -195,7 +224,7 @@ public class MyDoublyLinkedList<E> {
 
 	public void traverseForward() {
 		if (head.next == tail && tail.previous == head) {
-			System.out.println("You haven't added anything to your list yet :(");
+			System.out.println("Your list is empty");
 			System.out.println("");
 			return;
 		}
@@ -210,7 +239,7 @@ public class MyDoublyLinkedList<E> {
 
 	public void traverseBackward() {
 		if (tail.previous == head && head.next == tail) {
-			System.out.println("Your list is empty sir");
+			System.out.println("Your list is empty");
 			System.out.println("");
 			return;
 		}
@@ -225,23 +254,47 @@ public class MyDoublyLinkedList<E> {
 
 	public static void main(String[] args) {
 		MyDoublyLinkedList<String> list = new MyDoublyLinkedList<String>();
-		System.out.println("Your list is: " + list.size());
+		System.out.println("Your list size is: " + list.size());
+		System.out.println("");
+		list.removeFirst();
+		list.removeLast();
+		list.remove(0);
+		list.remove(2);
+		list.remove(-1);
+		list.change("Test", -1);
+		list.change("Test2", 5);
+		list.traverseForward();
+		list.traverseBackward();
+		System.out.println("No more checks to do for now, let's get to it!");
 		System.out.println("");
 		list.addFirst("Nick");
-		list.addFirst("Nelly");
-		list.addFirst("Gerry");
+		list.addLast("Gerry");
 		list.traverseForward();
-		list.add("Oscar", 1);
+		list.traverseBackward();
+		list.add("Nelly", 3);
+		list.add("Nelly", -1);
+		list.add("Nelly", 1);
+		list.traverseForward();
+		list.traverseBackward();
+		list.addLast("Oscar");
+		list.addLast("Aleks");
+		list.traverseForward();
+		list.traverseBackward();
+		list.change("Oscar Jr", -1);
+		list.change("Oscar Jr", 5);
+		list.change("Oscar Jr", 3);
+		list.traverseForward();
+		list.traverseBackward();
+		list.remove(-1);
+		list.remove(5);
+		list.remove(2);
 		list.traverseForward();
 		list.traverseBackward();
 		list.removeFirst();
-		list.traverseForward();
-		list.traverseBackward();
 		list.removeLast();
 		list.removeLast();
 		list.traverseForward();
 		list.traverseBackward();
-		System.out.println("Your list is: " + list.size());
-		System.out.println("");
+		System.out.println("Thanks for stopping by, that's my doubly linked list");
 	}
 }
