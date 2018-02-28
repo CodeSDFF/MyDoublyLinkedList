@@ -162,7 +162,7 @@ public class MyDoublyLinkedList<E> {
 		// what is being removed when the code runs
 		// and how large the list size is before the removal
 		
-		System.out.println("Item is about to be removed");
+		System.out.println("An Item is about to be removed");
 		System.out.println("List Size is: " + size());
 		System.out.println("");
 		
@@ -256,45 +256,47 @@ public class MyDoublyLinkedList<E> {
 		MyDoublyLinkedList<String> list = new MyDoublyLinkedList<String>();
 		System.out.println("Your list size is: " + list.size());
 		System.out.println("");
-		list.removeFirst();
-		list.removeLast();
-		list.remove(0);
-		list.remove(2);
-		list.remove(-1);
-		list.change("Test", -1);
-		list.change("Test2", 5);
-		list.traverseForward();
-		list.traverseBackward();
-		System.out.println("No more checks to do for now, let's get to it!");
-		System.out.println("");
-		list.addFirst("Nick");
-		list.addLast("Gerry");
-		list.traverseForward();
-		list.traverseBackward();
-		list.add("Nelly", 3);
-		list.add("Nelly", -1);
-		list.add("Nelly", 1);
-		list.traverseForward();
-		list.traverseBackward();
-		list.addLast("Oscar");
-		list.addLast("Aleks");
-		list.traverseForward();
-		list.traverseBackward();
-		list.change("Oscar Jr", -1);
-		list.change("Oscar Jr", 5);
-		list.change("Oscar Jr", 3);
-		list.traverseForward();
-		list.traverseBackward();
-		list.remove(-1);
-		list.remove(5);
-		list.remove(2);
-		list.traverseForward();
-		list.traverseBackward();
-		list.removeFirst();
-		list.removeLast();
-		list.removeLast();
-		list.traverseForward();
-		list.traverseBackward();
-		System.out.println("Thanks for stopping by, that's my doubly linked list");
+		
+	
+//		list.removeFirst();
+//		list.removeLast();
+//		list.remove(0);
+//		list.remove(2);
+//		list.remove(-1);
+//		list.change("Test", -1);
+//		list.change("Test2", 5);
+//		list.traverseForward();
+//		list.traverseBackward();
+//		System.out.println("No more checks to do for now, let's get to it!");
+//		System.out.println("");
+//		list.addFirst("Nick");
+//		list.addLast("Gerry");
+//		list.traverseForward();
+//		list.traverseBackward();
+//		list.add("Nelly", 3);
+//		list.add("Nelly", -1);
+//		list.add("Nelly", 1);
+//		list.traverseForward();
+//		list.traverseBackward();
+//		list.addLast("Oscar");
+//		list.addLast("Aleks");
+//		list.traverseForward();
+//		list.traverseBackward();
+//		list.change("Oscar Jr", -1);
+//		list.change("Oscar Jr", 5);
+//		list.change("Oscar Jr", 3);
+//		list.traverseForward();
+//		list.traverseBackward();
+//		list.remove(-1);
+//		list.remove(5);
+//		list.remove(2);
+//		list.traverseForward();
+//		list.traverseBackward();
+//		list.removeFirst();
+//		list.removeLast();
+//		list.removeLast();
+//		list.traverseForward();
+//		list.traverseBackward();
+//		System.out.println("Thanks for stopping by, that's my doubly linked list");
 	}
 }
